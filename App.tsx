@@ -53,19 +53,32 @@ const App: React.FC = () => {
 
         if (error) throw error;
 
+        // Função para converter data ISO para DD/MM/AA
+        const formatDate = (dateStr: string): string => {
+          if (!dateStr) return '';
+          // Se já está no formato DD/MM/AA, retorna direto
+          if (dateStr.includes('/')) return dateStr;
+          // Converte de YYYY-MM-DD para DD/MM/AA
+          const date = new Date(dateStr);
+          const day = String(date.getDate()).padStart(2, '0');
+          const month = String(date.getMonth() + 1).padStart(2, '0');
+          const year = String(date.getFullYear()).slice(-2);
+          return `${day}/${month}/${year}`;
+        };
+
         const formattedData: Sale[] = (data || []).map(item => ({
           id: item.id,
           conta: item.conta || '',
-          setor: item.setor,
+          setor: item.setor || '',
           custoSetor: parseFloat(item.custo_setor) || 0,
           custoPlano: parseFloat(item.custo_plano) || 0,
           valorVenda: parseFloat(item.valor_venda) || 0,
           lucro: parseFloat(item.lucro) || 0,
-          nomePix: item.nome_pix,
-          facial: item.status as 'ENVIADO' | 'PENDENTE',
+          nomePix: item.nome_pix || '',
+          facial: (item.status === 'ENVIADO' ? 'ENVIADO' : 'PENDENTE') as 'ENVIADO' | 'PENDENTE',
           contato: item.contato || '',
           pagamento: item.pagamento || '',
-          data: item.data
+          data: formatDate(item.data)
         }));
 
         setSales(formattedData);
