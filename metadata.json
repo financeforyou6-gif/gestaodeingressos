@@ -1,0 +1,5 @@
+{
+  "name": "Gestão de Ingressos - Dashboard",
+  "description": "Uma plataforma de análise de performance e gestão de vendas de ingressos, com indicadores financeiros, rankings por setor e tabela detalhada de transações.",
+  "requestFramePermissions": []
+}
