@@ -83,12 +83,14 @@ const App: React.FC = () => {
 
         setSales(formattedData);
       } else {
-        // Usar dados mock se Supabase não estiver configurado
-        setSales(MOCK_SALES);
+        // Supabase não configurado - mostra lista vazia
+        console.warn('Supabase não configurado. Configure as variáveis de ambiente.');
+        setSales([]);
       }
     } catch (error) {
       console.error('Error loading sales:', error);
-      setSales(MOCK_SALES);
+      // Em caso de erro, mostra lista vazia em vez de dados mock
+      setSales([]);
     } finally {
       setLoading(false);
     }
